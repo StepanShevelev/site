@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Post;
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -19,6 +21,7 @@ class UserFormType extends AbstractType
             ->add('email',EmailType::class, array(
                 'label'=>'Введите Email'
             ))
+
             ->add('password', PasswordType::class, array(
                 'label'=>'Введите пароль'
 
