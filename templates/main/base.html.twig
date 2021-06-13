@@ -24,7 +24,8 @@
                 <a class="nav-link" href="{{ path('home') }}">Главная </a>
             </li>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <a  >Вакансии</a>
+
+                <a class="nav-link" href="{{ path('admin_post') }}">Вакансии </a>
             {% endif %}
         </ul>
 
@@ -42,6 +43,8 @@
 
         <form class="form-inline">
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                
+
 
                 <a href="{{ path('app_logout') }}" class="btn btn-outline-success ml-3 " type="submit">Выход</a>
             {% else %}
@@ -58,7 +61,7 @@
 
     </div>
 </nav>
-{% block body %} {% endblock %}
+{% block body %}{% endblock %}
 {% block javascripts %} {% endblock %}
 </body>
 </html>

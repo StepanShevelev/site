@@ -12,7 +12,7 @@
     </div>
 
 
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_ADMIN') or ('ROLE_MANAGER') %}
 
 
     <div class="container-fluid">

@@ -40,7 +40,7 @@ class PostFormType extends AbstractType
                 ]
             ))
             ->add('user', EntityType::class, array(
-                'label' => 'Выбрать польлзователя',
+                'label' => 'Введите email',
                 'class' => User::class,
                 'choice_label'=> 'email',
                 'attr' => [

@@ -15,7 +15,11 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            {{ form(form) }}
+            {{ form_start(form) }}
+            {{ form_row(form.title) }}
+            {{ form_row(form.content) }}
+
+            {{ form_end(form) }}
         </div>
 
     </div>
@@ -23,3 +27,7 @@
 
 
 {% endblock %}
+
+
+
+
