@@ -35,16 +35,23 @@
                     <a class="nav-link" href="{{ path('admin_category') }}">Направления </a>
                 </li>
             {% endif %}
+
+
             <li>
                 <a class="nav-link" href="{{ path('admin_post') }}">Вакансии </a>
             </li>
-
-
         </ul>
+
+        <li>
+            <a href="{{ path('profile') }}" class="btn btn-outline-success mr-3 " type="submit">Профиль</a>
+        </li>
+
+
         <form class="form-inline">
             <a href="{{ path('app_logout') }}" class="btn btn-outline-danger my-2 my-sm-0" type="submit">Выход</a>
         </form>
     </div>
+
 </nav>
 {% block body %}{% endblock %}
 </body>

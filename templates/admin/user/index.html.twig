@@ -45,7 +45,7 @@
                 <h2>Список пользователей</h2>
                 <ul>
                     {% for user in users %}
-                        <li>{{ user.email }},{{ user.roles | json_encode }}</li>
+                        <li>{{ user.email }},{{ user.roles | json_encode }},</li>
                     {% endfor %}
                 </ul>
 

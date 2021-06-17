@@ -28,7 +28,7 @@ class Post
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="posts")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="posts", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
@@ -39,6 +39,15 @@ class Post
      */
     private $category;
 
+    /**
+     * Transform to string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->title;
+    }
     public function getId(): ?int
     {
         return $this->id;

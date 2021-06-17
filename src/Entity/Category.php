@@ -34,6 +34,16 @@ class Category
      */
     private $posts;
 
+    /**
+     * Transform to string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->title;
+    }
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();

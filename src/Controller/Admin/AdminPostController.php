@@ -32,7 +32,6 @@ class AdminPostController extends AdminBaseController
     }
 
 
-
     /**
      * @Route ("/admin/post/create", name="admin_post_create")
      * @param Request $request
@@ -40,19 +39,17 @@ class AdminPostController extends AdminBaseController
      */
     public function create(Request $request)
     {
+
         $em = $this->getDoctrine()->getManager();
         $post = new Post();
         $form = $this->createForm(PostFormType::class, $post);
         $form->handleRequest($request);
 
 
-
         $post->setUser($form->get('user')->getData());
 
 
-
-        if ($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $em->persist($post);
             $em->flush();
@@ -65,6 +62,8 @@ class AdminPostController extends AdminBaseController
         $forRender['form'] = $form->createView();
         return $this->render('admin/post/form.html.twig', $forRender);
     }
+
+
 
     /**
      * @Route("/admin/post/update/{id}", name="admin_post_update")
@@ -101,17 +100,6 @@ class AdminPostController extends AdminBaseController
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
+

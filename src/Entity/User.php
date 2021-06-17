@@ -40,9 +40,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity=Post::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Post::class, mappedBy="user", cascade={"persist"})
      */
     private $posts;
+
+    /**
+     * Transform to string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->email;
+    }
 
     public function __construct()
     {

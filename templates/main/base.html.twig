@@ -25,6 +25,7 @@
             </li>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
+
                 <a class="nav-link" href="{{ path('admin_post') }}">Вакансии </a>
             {% endif %}
         </ul>
@@ -43,8 +44,8 @@
 
         <form class="form-inline">
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                
 
+                <a href="{{ path('profile') }}" class="btn btn-outline-success ml-3 " type="submit">Профиль</a>
 
                 <a href="{{ path('app_logout') }}" class="btn btn-outline-success ml-3 " type="submit">Выход</a>
             {% else %}
