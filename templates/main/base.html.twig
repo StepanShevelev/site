@@ -28,6 +28,10 @@
 
                 <a class="nav-link" href="{{ path('admin_post') }}">Вакансии </a>
             {% endif %}
+
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') %}
+                <a class="nav-link" href="{{ path('admin_madepost') }}">Мои Вакансии </a>
+            {% endif %}
         </ul>
 
 
@@ -47,7 +51,7 @@
 
                 <a href="{{ path('profile') }}" class="btn btn-outline-success ml-3 " type="submit">Профиль</a>
 
-                <a href="{{ path('app_logout') }}" class="btn btn-outline-success ml-3 " type="submit">Выход</a>
+                <a href="{{ path('app_logout') }}" class="btn btn-outline-danger ml-3 " type="submit">Выход</a>
             {% else %}
 
                 <a href="{{ path('app_register') }}" class="btn btn-outline-success ml-3 " type="submit">Регистрация</a>

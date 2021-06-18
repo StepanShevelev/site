@@ -40,6 +40,10 @@
             <li>
                 <a class="nav-link" href="{{ path('admin_post') }}">Вакансии </a>
             </li>
+
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') %}
+                <a class="nav-link" href="{{ path('admin_madepost') }}">Мои Вакансии </a>
+            {% endif %}
         </ul>
 
         <li>

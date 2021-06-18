@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PostRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,6 +40,16 @@ class Post
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Demand::class, mappedBy="post")
+     */
+    private $demands;
+
+    public function __construct()
+    {
+        $this->demands = new ArrayCollection();
+    }
 
     /**
      * Transform to string
@@ -97,6 +109,36 @@ class Post
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Demand[]
+     */
+    public function getDemands(): Collection
+    {
+        return $this->demands;
+    }
+
+    public function addDemand(Demand $demand): self
+    {
+        if (!$this->demands->contains($demand)) {
+            $this->demands[] = $demand;
+            $demand->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDemand(Demand $demand): self
+    {
+        if ($this->demands->removeElement($demand)) {
+            // set the owning side to null (unless already changed)
+            if ($demand->getPost() === $this) {
+                $demand->setPost(null);
+            }
+        }
 
         return $this;
     }

@@ -45,6 +45,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $posts;
 
     /**
+     * @ORM\OneToMany(targetEntity=Demand::class, mappedBy="user")
+     */
+    private $demands;
+
+    /**
      * Transform to string
      *
      * @return string
@@ -57,6 +62,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->posts = new ArrayCollection();
+        $this->demands = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -169,6 +175,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($post->getUser() === $this) {
                 $post->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Demand[]
+     */
+    public function getDemands(): Collection
+    {
+        return $this->demands;
+    }
+
+    public function addDemand(Demand $demand): self
+    {
+        if (!$this->demands->contains($demand)) {
+            $this->demands[] = $demand;
+            $demand->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDemand(Demand $demand): self
+    {
+        if ($this->demands->removeElement($demand)) {
+            // set the owning side to null (unless already changed)
+            if ($demand->getUser() === $this) {
+                $demand->setUser(null);
             }
         }
 

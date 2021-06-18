@@ -33,6 +33,19 @@ class AdminPostController extends AdminBaseController
 
 
     /**
+     * @Route ("/admin/post/single{post}", name="admin_post_single")
+     */
+    public function single(Post $post)
+    {
+
+
+        return $this->render('admin/post/single.html.twig', ['post'=>$post]);
+    }
+
+
+
+
+    /**
      * @Route ("/admin/post/create", name="admin_post_create")
      * @param Request $request
      * @return RedirectResponse|Response
@@ -45,8 +58,6 @@ class AdminPostController extends AdminBaseController
         $form = $this->createForm(PostFormType::class, $post);
         $form->handleRequest($request);
 
-
-        $post->setUser($form->get('user')->getData());
 
 
         if ($form->isSubmitted() && $form->isValid()) {
