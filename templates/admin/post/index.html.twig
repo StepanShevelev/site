@@ -31,7 +31,7 @@
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ message }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true"></span>
+                            <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                 {% endfor %}
@@ -75,7 +75,7 @@
                                 <a href="{{ path('admin_post_update' , {'id':post_item.id }) }}" class="card-link">Редактировать</a>
 
                                 {% endif %}
-                                <a href="{{ path('admin_demand_create') }}" >Откликнуться </a>
+                                <a href="{{ path('admin_demand_create', {'id':post_item.id }) }}" >Откликнуться </a>
 
                             </div>
                         </div>

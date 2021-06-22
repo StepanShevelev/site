@@ -12,16 +12,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 
 class AdminPostController extends AdminBaseController
 {
+
     /**
      * @Route ("/admin/post", name="admin_post")
      * @return Response
      */
     public function index(): Response
     {
+        $session = new Session();
+        $session->start();
+
         $post = $this->getDoctrine()->getRepository(Post::class)->findAll();
 
         $forRender = parent::renderDefault();
@@ -34,8 +39,10 @@ class AdminPostController extends AdminBaseController
 
     /**
      * @Route ("/admin/post/single{post}", name="admin_post_single")
+     * @param Post $post
+     * @return Response
      */
-    public function single(Post $post)
+    public function single(Post $post): Response
     {
 
 
@@ -53,8 +60,12 @@ class AdminPostController extends AdminBaseController
     public function create(Request $request)
     {
 
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+
         $em = $this->getDoctrine()->getManager();
         $post = new Post();
+        $post = $post->setUser($user);
         $form = $this->createForm(PostFormType::class, $post);
         $form->handleRequest($request);
 
@@ -64,6 +75,7 @@ class AdminPostController extends AdminBaseController
 
             $em->persist($post);
             $em->flush();
+
             $this->addFlash('success', 'Вакансия добавлена');
             return $this->redirectToRoute('admin_post');
         }

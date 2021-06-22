@@ -39,14 +39,7 @@ class PostFormType extends AbstractType
                     'placeholder' => 'Введите описание'
                 ]
             ))
-            ->add('user', EntityType::class, array(
-                'label' => 'Введите email',
-                'class' => User::class,
-                'choice_label'=> 'email',
-                'attr' => [
-                    'placeholder' => 'Введите текст'
-                ]
-            ))
+
             ->add('save', SubmitType::class, array(
                 'label' => 'Сохранить',
                 'attr' => [

@@ -50,6 +50,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $demands;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $fio;
+
+    /**
      * Transform to string
      *
      * @return string
@@ -207,6 +212,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $demand->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFio(): ?string
+    {
+        return $this->fio;
+    }
+
+    public function setFio(string $fio): self
+    {
+        $this->fio = $fio;
 
         return $this;
     }

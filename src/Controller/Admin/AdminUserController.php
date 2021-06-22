@@ -48,7 +48,7 @@ class AdminUserController extends AdminBaseController
         {
             $password = $passwordEncoder->encodePassword($user, $user->GetPassword());
             $user-> setPassword($password);
-            $user->setRoles(["ROLE_ADMIN"]);
+            $user->setRoles(["ROLE_USER"]);
             $em->persist($user);
             $em->flush();
 

@@ -1,0 +1,36 @@
+.form-login{
+    width: 80%;
+    padding: 30px;
+    border-radius: 5px;
+    margin: 30% auto;
+
+}
+.form-register{
+
+    width: 80%;
+    padding: 30px;
+    border-radius: 5px;
+    margin: 30% auto;
+
+}
+.container {
+
+    position:relative;
+    display:flex;
+    margin: 0 ;
+    height:80vh;
+    justify-content: center;
+    align-items: center;
+
+}
+body {
+
+
+    width:100vw;
+    display:flex;
+    margin: 0 ;
+    height:100vh;
+    justify-content: center;
+    align-items: center;
+
+}
