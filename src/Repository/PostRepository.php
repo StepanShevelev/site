@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,6 +20,72 @@ class PostRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Post::class);
     }
+
+public function countPages(int $limit):int
+{
+    $postCount = $this->createQueryBuilder('p')
+        ->select('COUNT(p)')
+        ->getQuery()
+        ->getSingleScalarResult()
+        ;
+
+        return ceil($postCount/$limit);
+}
+
+public function searchBy($searchData, $limit, $offset):array
+{
+    $query= $this->buildSearchQuery($searchData);
+    $query->setMaxResults($limit)
+    ->setFirstResult($offset);
+
+    return $query->getQuery()->getResult();
+
+}
+
+public function countBy($searchData,$limit):int
+{
+    $query= $this->buildSearchQuery($searchData);
+    $query->select('COUNT(p)');
+
+    $totalCount = $query->getQuery()->getSingleScalarResult();
+
+    return ceil($totalCount / $limit);
+}
+
+protected function buildSearchQuery($searchData):QueryBuilder
+{
+    $qb = $this->createQueryBuilder('p');
+
+    if(!empty($searchData['search'])){
+        $qb
+            ->where($qb->expr()->like('p.title',':text'))
+
+            ->setParameter('text', '%' . $searchData['search'].'%')
+        ;
+    }
+
+
+    return $qb;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // /**
     //  * @return Post[] Returns an array of Post objects

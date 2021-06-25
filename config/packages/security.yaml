@@ -33,5 +33,16 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
-    #access_control:
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/post/create, roles: ROLE_ADMIN }
+        - { path: ^/admin/post/update, roles: ROLE_ADMIN }
+        - { path: ^/admin/user/create, roles: ROLE_ADMIN }
+        - { path: ^/admin/user/update, roles: ROLE_ADMIN }
+        - { path: ^/admin/user, roles: ROLE_ADMIN }
+        - { path: ^/admin/category/create, roles: ROLE_ADMIN }
+        - { path: ^/admin/category/update, roles: ROLE_ADMIN }
+        - { path: ^/admin/category, roles: ROLE_ADMIN }
+        - { path: ^/main, roles: ROLE_USER }
+
      

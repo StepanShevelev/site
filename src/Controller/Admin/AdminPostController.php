@@ -13,27 +13,86 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Knp\Component\Pager\PaginatorInterface;
 
 
 class AdminPostController extends AdminBaseController
 {
 
+
     /**
-     * @Route ("/admin/post", name="admin_post")
+     * @Route ("/admin/post{page}", name="admin_post", defaults={"page":1}, requirements={"page":"\d+"})
      * @return Response
      */
-    public function index(): Response
+    public function index(int $page): Response
     {
-        $session = new Session();
-        $session->start();
+        $entityManager = $this->getDoctrine()->getManager();
+        $post = $this->getDoctrine()->getRepository(Post::class)->findBy([], null, 3, $page * 3 - 3);
+        $lastPage = $entityManager->getRepository(Post::class)
+            ->countPages(3);
 
-        $post = $this->getDoctrine()->getRepository(Post::class)->findAll();
 
-        $forRender = parent::renderDefault();
-        $forRender['title'] = 'Вакансии';
-        $forRender['post'] = $post;
+        return $this->render('admin/post/index.html.twig',[
 
-        return $this->render('admin/post/index.html.twig', $forRender);
+            'post'=>$post,
+            'page'=>$page,
+            'title'=>'Вакансии',
+            'lastPage'=>$lastPage
+
+    ]);
+    }
+
+    /**
+     * @Route ("/admin/post/search", name="admin_post_search")
+     * @param Request $request
+     * @return Response
+     */
+    public function search(Request $request):Response
+    {
+        $em = $this->getDoctrine()->getManager();
+        $searchData = $request->query->all();
+        $page=$request->get('page',1);
+
+        $post = $em->getRepository(Post::class)
+            ->searchBy($searchData,3,$page * 3 - 3);
+
+        $lastPage = $em->getRepository(Post::class)
+            ->countBy($searchData,3);
+
+        return $this->render('admin/post/search.html.twig',[
+
+            'post'=>$post,
+            'page'=>$page,
+            'title'=>'Вакансии',
+            'lastPage'=>$lastPage
+
+        ]);
+    }
+
+    /**
+     * @Route ("/admin/madepost{page}", name="admin_madepost", defaults={"page":1})
+     * @return Response
+     */
+    public function findAllUserPosts(int $page): Response
+
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $id = $user->getId();
+        $post = $this->getDoctrine()->getRepository(Post::class)->findBy(['user'=>$id], null, 3, $page * 3 - 3);
+
+
+        $lastPage = 2;
+
+        return $this->render('admin/demand/index.html.twig',[
+
+            'posts'=>$post,
+            'page'=>$page,
+            'lastPage'=>$lastPage
+
+        ]);
+
     }
 
 
@@ -122,6 +181,12 @@ class AdminPostController extends AdminBaseController
         return $this->render('admin/post/form.html.twig', $forRender);
 
     }
+
+
+
+
+
+
 
 }
 

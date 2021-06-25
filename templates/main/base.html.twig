@@ -29,18 +29,8 @@
                 <a class="nav-link" href="{{ path('home') }}">Главная </a>
             </li>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                    Вакансии
-                </a>
-                <div class="dropdown-menu">
-                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') %}
-                        <a class="dropdown-item" href="{{ path('admin_madepost') }}">Мои вакансии</a>
-                    {% endif %}
-                    <a class="dropdown-item" href="{{ path('admin_post') }}">Все вакансии</a>
 
-                </div>
-            </li>
+
 
         </ul>
 
@@ -59,14 +49,10 @@
         <form class="form-inline">
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
-                <a href="{{ path('profile') }}" class="btn btn-outline-success ml-3 " type="submit">Профиль</a>
+                <a href="{{ path('profile') }}" class="btn btn-outline-success ml-3 " type="submit"> Профиль</a>
 
                 <a href="{{ path('app_logout') }}" class="btn btn-outline-danger ml-3 " type="submit">Выход</a>
-            {% else %}
 
-                <a href="{{ path('app_register') }}" class="btn btn-outline-success ml-3 " type="submit">Регистрация</a>
-
-                <a href="{{ path('app_login') }}" class="btn btn-outline-success ml-3 " type="submit">Авторизоваться</a>
             {% endif %}
         </form>
 
@@ -75,6 +61,12 @@
 
 
     </div>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    {% else %}
+    <a href="{{ path('app_register') }}" class="btn btn-outline-success ml-3 " type="submit">Регистрация</a>
+    <a href="{{ path('app_login') }}" class="btn btn-outline-success ml-3 " type="submit">Авторизоваться</a>
+    {% endif %}
+
 </nav>
 {% block body %}{% endblock %}
 {% block javascripts %} {% endblock %}

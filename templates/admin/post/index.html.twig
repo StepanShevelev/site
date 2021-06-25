@@ -57,7 +57,9 @@
     <div class="container-fluid">
         <div class="row no-gutters  mt-5">
             <div class="col-12 col-lg-6 col-md-6">
+                {{ include('admin/post/_sidebar.html.twig') }}
                 <h2>Список вакансий</h2>
+
                 <ul>
                     {% for post_item in post %}
 
@@ -65,8 +67,6 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ post_item.title }}</h5>
                                 <h7 class="card-title">{{ post_item.user}}</h7>
-
-
                                 <h6 class="card-subtitle mb-2 text-muted">{{ post_item.content }}</h6>
                                 <div class="text-white bg-white"><a href="{{ path ('admin_post_single',{'post':post_item.id}) }}">Просмотреть вакасию</a>
 
@@ -82,29 +82,36 @@
 
 
                     {% endfor %}
+                        <nav class="blog-pagination justify-content-center d-flex">
+                            {% set current_route = app.request.get('_route') %}
+                        <ul class="pagination">
+                            {% if (page > 1) %}
+                            <li class="page-item">
+                                <a href="{{ path(current_route, {page:page-1}) }}" class="page-link" aria-label="Previous">
+                                    <i class="ti-angle-left"><</i>
+                                </a>
+                            </li>
+                            {% endif%}
+                            {% for i in max(page-3, 1)..min(page+3, lastPage) %}
+                                <li class="page-item {% if(i==page) %}active{% endif %}">
+                                    <a href="{{ path(current_route, {page:i}) }}" class="page-link">{{ i }}</a>
+                                </li>
+                            {% endfor %}
+
+                            {% if (page < lastPage) %}
+                            <li class="page-item">
+                                <a href="{{ path(current_route, {page:page+1}) }}" class="page-link" aria-label="Next">
+                                    <i class="ti-angle-right">></i>
+                                </a>
+                            </li>
+                            {% endif%}
+                            </ul>
+                        </nav>
+
                 </ul>
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

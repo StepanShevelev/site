@@ -7,9 +7,11 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
+
 class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
+
 
     protected function configureContainer(ContainerConfigurator $container): void
     {
@@ -23,6 +25,7 @@ class Kernel extends BaseKernel
             $container->import('../config/{services}.php');
         }
     }
+
 
     protected function configureRoutes(RoutingConfigurator $routes): void
     {
