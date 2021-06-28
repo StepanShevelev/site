@@ -6,6 +6,7 @@
     {# Run `composer require symfony/webpack-encore-bundle`
            and uncomment the following Encore helpers to start using Symfony UX #}
     {% block stylesheets %}
+        <link rel="stylesheet" href="/public/assets/admin/css/style.css">
         <link rel="stylesheet" href="{{ asset('assets/framework/fontawesome-4.7.0/css/font-awesome.min.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -36,27 +37,36 @@
                 </li>
             {% endif %}
 
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    Вакансии
+                </a>
+                <div class="dropdown-menu">
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') %}
+                        <a class="dropdown-item" href="{{ path('admin_madepost') }}">Мои вакансии</a>
+                    {% endif %}
+                    <a class="dropdown-item" href="{{ path('admin_post') }}">Все вакансии</a>
 
-            <li>
-                <a class="nav-link" href="{{ path('admin_post') }}">Вакансии </a>
+                </div>
             </li>
 
-            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') %}
-                <a class="nav-link" href="{{ path('admin_madepost') }}">Мои Вакансии </a>
-            {% endif %}
+
         </ul>
 
 
+        <li class="nav-item dropdown">
+            <a class="btn btn-outline-info ml-3" href="#" id="navbardrop" data-toggle="dropdown">
+                Личный кабинет
+            </a>
+            <div class="dropdown-menu">
 
+                <a class="dropdown-item" href="{{ path('profile') }}" type="submit">Профиль</a>
 
+                <a class="dropdown-item" href="{{ path('app_logout') }}"  type="submit">Выход</a>
 
-        <li>
-            <a href="{{ path('profile') }}" class="btn btn-outline-success mr-3 " type="submit">Профиль</a>
+            </div>
         </li>
 
-        <form class="form-inline">
-            <a href="{{ path('app_logout') }}" class="btn btn-outline-danger my-2 my-sm-0" type="submit">Выход</a>
-        </form>
     </div>
 
 </nav>

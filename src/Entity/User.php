@@ -55,6 +55,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $fio;
 
     /**
+     * @ORM\Column(type="string", length=1000, nullable=true)
+     */
+    private $univ;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $phone;
+
+    /**
+     * @ORM\Column(type="string", length=1000, nullable=true)
+     */
+    private $org;
+
+    /**
      * Transform to string
      *
      * @return string
@@ -224,6 +239,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFio(string $fio): self
     {
         $this->fio = $fio;
+
+        return $this;
+    }
+
+    public function getUniv(): ?string
+    {
+        return $this->univ;
+    }
+
+    public function setUniv(string $univ): self
+    {
+        $this->univ = $univ;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function getOrg(): ?string
+    {
+        return $this->org;
+    }
+
+    public function setOrg(?string $org): self
+    {
+        $this->org = $org;
 
         return $this;
     }

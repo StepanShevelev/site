@@ -6,7 +6,7 @@
     <div class="container">
         <div class="container-fluid">
             <div class="row no-gutters justify-content-center mt-5">
-                <div class="col-12 col-lg-4 col-md-4">
+                <div class="col-12 col-lg-8 col-md-8">
                     <div class="form-register shadow-lg">
                         {% for flashError in app.flashes('verify_email_error') %}
                             <div class="alert alert-danger" role="alert">{{ flashError }}</div>
@@ -15,8 +15,42 @@
                         <h1 class="h3 mb-3 font-weight-normal text-center">Регистрация</h1>
 
                         {{ form_start(registrationForm) }}
-                        {{ form_row(registrationForm.email) }}
-
+                        <div class="form_group">
+                            <div class="col-md-12 mb-3">
+                                {{ form_row(registrationForm.email, {'attr': {'class':
+                                    'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form_group">
+                            <div class="col-md-12 mb-3">
+                                {{ form_row(registrationForm.phone, {'attr': {'class':
+                                    'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form_group">
+                            <div class="col-md-12 mb-3">
+                                {{ form_row(registrationForm.univ, {'attr': {'class':
+                                    'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form_group">
+                            <div class="col-md-12 mb-3">
+                                {{ form_row(registrationForm.org, {'attr': {'class':
+                                    'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form_group">
+                            <div class="col-md-12 mb-3">
+                                {{ form_row(registrationForm.fio, {'attr': {'class':
+                                    'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form_group">
+                            <div class="col-md-12 mb-3">
+                                {{ form_row(registrationForm.roles, {'attr': {'class':
+                                    'form-control'}}) }}
+                            </div>
+                        </div>
                         <div class="form_group">
                             <div class="col-md-12 mb-3">
                                 {{ form_row(registrationForm.password.first, {'attr': {'class':
@@ -25,21 +59,50 @@
                         </div>
 
                         <div class="form_group">
-                            <div class="col-md-12 mb-3">
+                            <div class="col-md-12 mb-3 ">
                                 {{ form_row(registrationForm.password.second, {'attr': {'class':
                                     'form-control'}}) }}
                             </div>
                         </div>
 
 
-                        {{ form_row(registrationForm.fio) }}
-                        <button type="submit" class="btn">зарегистрироваться</button>
+
+                        <div class="form_group">
+                            <div class="col-md-12 mb-3">
+                                <button class="btn btn-block btn-primary mt-5" type="submit">
+                                    Зарегистрироваться
+                                </button>
+                            </div>
+                        </div>
+
+
+
                         {{ form_end(registrationForm) }}
                     </div>
                 </div>
-            </div>>
-        </div>>
+            </div>
+        </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 {% endblock %}
 

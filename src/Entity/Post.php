@@ -42,7 +42,7 @@ class Post
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity=Demand::class, mappedBy="post")
+     * @ORM\OneToMany(targetEntity=Demand::class, mappedBy="post", cascade={"remove"})
      */
     private $demands;
 

@@ -4,7 +4,9 @@
 namespace App\Controller\Admin;
 
 
+use App\Entity\Post;
 use App\Entity\User;
+use App\Form\PostFormType;
 use App\Form\UserFormType;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -61,4 +63,37 @@ class AdminUserController extends AdminBaseController
         $forRender['form'] = $form->createView();
         return $this->render('admin/user/form.html.twig',$forRender);
     }
+
+
+    /**
+     * @Route("/admin/user/update/{id}", name="admin_user_update")
+     * @param int $id
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function update(int $id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+        $form = $this->createForm(UserFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->IsSubmitted() && $form->isValid()) {
+            if ($form->get('save')->isClicked()) {
+                $this->addFlash('success', 'Данные обновлены');
+            }
+
+            $em->flush();
+
+            return $this->redirectToRoute('profile');
+
+        }
+
+        $forRender = parent::renderDefault();
+        $forRender['title'] = 'Редактрование Пользователя';
+        $forRender['form'] = $form->createView();
+        return $this->render('admin/user/form.html.twig', $forRender);
+
+    }
+
 }

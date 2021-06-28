@@ -46,15 +46,25 @@
         </form>
 
 
-        <form class="form-inline">
+
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
 
-                <a href="{{ path('profile') }}" class="btn btn-outline-success ml-3 " type="submit"> Профиль</a>
+                <li class="nav-item dropdown">
+                    <a class="btn btn-outline-info ml-3" href="#" id="navbardrop" data-toggle="dropdown">
+                        Личный кабинет
+                    </a>
+                    <div class="dropdown-menu">
 
-                <a href="{{ path('app_logout') }}" class="btn btn-outline-danger ml-3 " type="submit">Выход</a>
+                        <a class="dropdown-item" href="{{ path('profile') }}" type="submit">Профиль</a>
+
+                        <a class="dropdown-item" href="{{ path('app_logout') }}"  type="submit">Выход</a>
+
+                    </div>
+                </li>
+
 
             {% endif %}
-        </form>
+
 
 
 

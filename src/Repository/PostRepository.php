@@ -49,7 +49,7 @@ public function countBy($searchData,$limit):int
 
     $totalCount = $query->getQuery()->getSingleScalarResult();
 
-    return ceil($totalCount / $limit);
+    return ceil($totalCount / $limit) ? :1;
 }
 
 protected function buildSearchQuery($searchData):QueryBuilder
@@ -59,6 +59,7 @@ protected function buildSearchQuery($searchData):QueryBuilder
     if(!empty($searchData['search'])){
         $qb
             ->where($qb->expr()->like('p.title',':text'))
+
 
             ->setParameter('text', '%' . $searchData['search'].'%')
         ;

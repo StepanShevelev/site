@@ -30,12 +30,14 @@ class AdminPostController extends AdminBaseController
         $post = $this->getDoctrine()->getRepository(Post::class)->findBy([], null, 3, $page * 3 - 3);
         $lastPage = $entityManager->getRepository(Post::class)
             ->countPages(3);
-
+        $users = $entityManager->getRepository(User::class)
+            ->findBy(['id'=>$post], null, 1, $page * 3 - 3);
 
         return $this->render('admin/post/index.html.twig',[
 
             'post'=>$post,
             'page'=>$page,
+            'user'=>$users,
             'title'=>'Вакансии',
             'lastPage'=>$lastPage
 
@@ -55,6 +57,7 @@ class AdminPostController extends AdminBaseController
 
         $post = $em->getRepository(Post::class)
             ->searchBy($searchData,3,$page * 3 - 3);
+
 
         $lastPage = $em->getRepository(Post::class)
             ->countBy($searchData,3);
@@ -83,7 +86,8 @@ class AdminPostController extends AdminBaseController
         $post = $this->getDoctrine()->getRepository(Post::class)->findBy(['user'=>$id], null, 3, $page * 3 - 3);
 
 
-        $lastPage = 2;
+        $lastPage = $entityManager->getRepository(Post::class)
+            ->countPages(4);
 
         return $this->render('admin/demand/index.html.twig',[
 
@@ -101,7 +105,8 @@ class AdminPostController extends AdminBaseController
      * @param Post $post
      * @return Response
      */
-    public function single(Post $post): Response
+    public function single(Post $post ): Response
+
     {
 
 

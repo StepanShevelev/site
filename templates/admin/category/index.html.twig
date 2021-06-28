@@ -14,7 +14,7 @@
 
     <div class="container-fluid">
         <div class="row no-gutters ">
-            <div class="col-12 mt-5">
+            <div class="col-12 mt-5 mb-3">
 
                 <a href="{{ path('admin_category_create') }}" class="btn btn-success">Создать Направление </a>
             </div>
@@ -37,14 +37,19 @@
     </div>
 
 
-    <div class="container-fluid">
+    <div class="container-fluid ">
         <div class="row no-gutters  ">
-            <div class="col-12 ">
-                <h2>Список Направлений</h2>
+            <div class="col-12  ">
+
                 <ul>
                     {% for category_item in category %}
-                        <li>{{ category_item.title }}
-                            <a href="{{ path('admin_category_update' , {'id':category_item.id }) }}" class="btn-link"> Редактировать </a>
+
+                        <li>
+                            <div class=" mb-3">
+                            {{ category_item.title }}
+                                <a href="{{ path('admin_category_update' , {'id':category_item.id }) }}" class="btn btn-primary "> Редактировать </a>
+                            </div>
+
                         </li>
                     {% endfor %}
                 </ul>
